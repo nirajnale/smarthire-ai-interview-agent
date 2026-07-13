@@ -3,7 +3,7 @@
     Marvellous SmartHire AI Agent
 ============================================================
 
-Author       : Piyush Manohar Khairnar
+Author       : Niraj Vijaysinh Nale
 Date         : 10/05/2026
 
 Description  :
