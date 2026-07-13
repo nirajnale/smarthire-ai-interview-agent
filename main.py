@@ -33,7 +33,7 @@ def print_header():
     print("              Marvellous Infosystems")
     print("              AI Mock Interview Agent")
     print("              Text Based Version")
-    print("              Author : Piyush Manohar Khairnar")
+    print("              Author : Niraj Vijaysinh Nale")
     print("              Date   : 10/05/2026")
     print("              आम्ही Technical संस्कार करतो !!!")
     print("=" * 70)
