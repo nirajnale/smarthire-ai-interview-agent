@@ -1,123 +1,188 @@
 # SmartHire AI Interview Agent
 
-> A modular Python-based AI interview evaluation system that conducts technical mock interviews through a command-line interface, evaluates candidate responses using a locally hosted Llama 3 model via Ollama, and generates detailed interview reports.
+> A modular Python-based AI interview evaluation system that simulates technical mock interviews using a locally hosted **Llama 3 Large Language Model** through **Ollama**, providing intelligent answer evaluation, structured feedback, interview history tracking, and automated report generation.
 
 ---
 
-# Overview
+## Overview
 
-SmartHire AI Interview Agent is a modular Python application designed to simulate technical interviews and automate answer evaluation using a locally deployed Large Language Model (LLM).
+SmartHire AI Interview Agent is a command-line application designed to automate technical interview practice using Generative AI.
 
-Instead of relying on external AI APIs, the application communicates with a locally running Ollama instance hosting Llama 3, enabling offline inference while demonstrating prompt engineering, modular software design, AI integration, and automated report generation.
+The application conducts mock interviews by presenting technical questions, collecting candidate responses, evaluating answers through a locally running Llama 3 model, extracting interview scores, maintaining interview history, and generating a detailed interview report.
 
-The project focuses on software engineering principles including separation of concerns, reusable modules, configurable workflows, and clean application organization.
+Rather than functioning as a simple chatbot, the project demonstrates how Large Language Models can be integrated into a modular software application to automate an interview evaluation workflow while maintaining clean software organization and separation of responsibilities.
+
+The project emphasizes practical software engineering concepts such as modular architecture, prompt engineering, AI integration, reusable components, and report generation.
 
 ---
 
 # Problem Statement
 
-Preparing for technical interviews often requires consistent feedback that is difficult to obtain without an interviewer.
+Preparing for technical interviews often requires experienced interviewers who can provide timely and structured feedback.
 
-This project demonstrates how an AI-assisted evaluation workflow can automate interview assessment by:
+This project explores how a locally deployed Large Language Model can automate parts of the interview process by:
 
-- Asking technical interview questions
-- Sending responses to an LLM
-- Receiving structured evaluations
-- Extracting interview scores
-- Tracking interview history
-- Generating detailed interview reports
+- asking technical interview questions
+- evaluating candidate responses
+- providing constructive feedback
+- assigning interview scores
+- maintaining interview history
+- generating performance reports
+
+The project serves as both a software engineering exercise and a practical introduction to AI-assisted interview automation.
 
 ---
 
 # Objectives
 
-- Demonstrate LLM integration using Ollama
-- Apply prompt engineering for structured evaluations
-- Build a modular Python application
-- Automate interview assessment
-- Generate reusable interview reports
-- Showcase clean software organization
+The primary objectives of the project are to demonstrate:
+
+- Modular Python application development
+- Large Language Model (LLM) integration
+- AI Agent workflow concepts
+- Prompt engineering
+- Interview automation
+- Automated answer evaluation
+- Interview history management
+- Report generation
+- Clean software engineering practices
 
 ---
 
 # Features
 
-- Technical mock interviews
+- Full technical interview mode
 - Topic-wise interview mode
-- Full interview mode
-- Llama 3 evaluation through Ollama
-- Prompt-based answer assessment
+- Question bank organized by domain
+- AI-powered answer evaluation using Llama 3
+- Prompt-based response analysis
 - Automatic score extraction
 - Interview history tracking
-- Overall performance calculation
-- Report generation
-- Local execution without cloud APIs
+- Performance summary generation
+- Timestamped report generation
+- Local execution using Ollama (no cloud AI dependency)
 
 ---
 
 # High-Level Architecture
 
-```
-+-------------------+
-|      User         |
-+---------+---------+
-          |
-          v
-+-------------------+
-|     main.py       |
-| CLI Application   |
-+---------+---------+
-          |
-          v
-+----------------------------+
-| MockInterviewAgent         |
-| interview_agent.py         |
-+---------+------------------+
-          |
-          v
-+----------------------------+
-| Prompt Construction        |
-+---------+------------------+
-          |
-          v
-+----------------------------+
-| llm_engine.py              |
-| Ollama REST API Client     |
-+---------+------------------+
-          |
-          v
-+----------------------------+
-| Local Llama 3 Model        |
-+---------+------------------+
-          |
-          v
-Evaluation Response
-          |
-          v
-+----------------------------+
-| Score Extraction           |
-| Interview History          |
-| Report Generation          |
-+---------+------------------+
-          |
-          v
-reports/
+```text
+                    Candidate
+                        │
+                        ▼
+                 Command Line UI
+                    (main.py)
+                        │
+                        ▼
+            MockInterviewAgent
+             (Business Logic)
+                        │
+      ┌─────────────────┼──────────────────┐
+      │                 │                  │
+      ▼                 ▼                  ▼
+Prompt Builder   Interview History   Score Extraction
+      │
+      ▼
+      llm_engine.py
+      │
+HTTP POST Request
+      │
+      ▼
+ Ollama REST API
+      │
+      ▼
+ Local Llama 3
+      │
+      ▼
+Structured Evaluation
+      │
+      ▼
+report_generator.py
+      │
+      ▼
+ Interview Report (.txt)
 ```
 
 ---
 
 # System Workflow
 
-1. User starts interview.
-2. Candidate selects interview mode.
-3. Questions are loaded from the question bank.
-4. Candidate submits an answer.
-5. A structured evaluation prompt is generated.
-6. Prompt is sent to Ollama.
-7. Llama 3 returns structured feedback.
-8. Score is extracted.
-9. Interview history is updated.
-10. Final report is generated and saved.
+```
+Student starts interview
+        │
+        ▼
+main.py initializes application
+        │
+        ▼
+Student selects interview mode
+        │
+        ▼
+Questions loaded from questions.py
+        │
+        ▼
+Candidate submits answer
+        │
+        ▼
+MockInterviewAgent constructs prompt
+        │
+        ▼
+Prompt sent to Ollama
+        │
+        ▼
+Llama 3 evaluates answer
+        │
+        ▼
+Structured feedback returned
+        │
+        ▼
+Score extracted
+        │
+        ▼
+Interview history updated
+        │
+        ▼
+Final report generated
+        │
+        ▼
+Report saved locally
+```
+
+---
+
+# AI Evaluation Workflow
+
+The AI evaluation process consists of the following stages:
+
+1. Candidate answers a technical interview question.
+2. The application creates a structured evaluation prompt.
+3. The prompt is sent to the locally running Llama 3 model through Ollama.
+4. The model returns structured feedback including:
+
+- Score
+- Evaluation
+- Missing Points
+- Improved Answer
+- Interview Suggestions
+
+5. The application extracts the interview score.
+6. Interview history is updated.
+7. The final interview report is generated.
+
+---
+
+# AI Agent Concepts Demonstrated
+
+Although lightweight, the project illustrates the core building blocks of an AI Agent.
+
+| AI Agent Component | Implementation |
+|-------------------|----------------|
+| User Input | Candidate interview response |
+| Goal | Evaluate technical interview answers |
+| LLM Brain | Llama 3 |
+| Tool | Ollama REST API |
+| Memory | Interview history (`self.history`) |
+| Decision | Structured evaluation & scoring |
+| Output | Interview report |
 
 ---
 
@@ -127,13 +192,13 @@ reports/
 
 Application entry point.
 
-Responsible for:
+Responsibilities:
 
-- CLI interaction
-- Menu handling
-- Interview flow
-- User input
-- Session orchestration
+- Display application menu
+- Accept candidate information
+- Start interview sessions
+- Coordinate interview workflow
+- Save final reports
 
 ---
 
@@ -144,90 +209,66 @@ Core business logic.
 Responsibilities:
 
 - Prompt construction
-- LLM evaluation
+- LLM interaction
+- Answer evaluation
 - Score extraction
-- History management
-- Performance aggregation
+- Interview history management
+- Overall score calculation
+- Final report preparation
+
+This module encapsulates the application's interview orchestration logic while keeping AI communication separate.
 
 ---
 
 ## llm_engine.py
 
-Dedicated LLM communication layer.
+Dedicated AI communication layer.
 
 Responsibilities:
 
-- HTTP communication
-- Ollama integration
-- Response handling
-- Connection error handling
+- Build Ollama requests
+- Send HTTP requests
+- Receive LLM responses
+- Handle connection failures
+- Isolate LLM communication
 
-Separating the LLM client from interview logic improves maintainability and allows the inference backend to be replaced independently.
+Separating this functionality improves maintainability and allows future replacement of the inference backend without affecting interview logic.
 
 ---
 
 ## questions.py
 
-Static question repository.
+Question repository.
 
-Provides topic-wise interview questions independent of application logic.
+Responsibilities:
+
+- Store technical interview questions
+- Organize questions by topic
+- Provide an extensible question bank
+
+Current topics include:
+
+- Python
+- OOP
+- Machine Learning
+- Deep Learning
+- Transformers
+- LLMs
+- RAG
+- AI Agents
 
 ---
 
 ## report_generator.py
 
-Responsible for:
+Responsible for report persistence.
 
-- Report formatting
-- Report persistence
-- Timestamp generation
-- Reports directory management
+Responsibilities:
 
----
-
-# AI Integration
-
-The application integrates with a locally hosted Llama 3 model using the Ollama REST API.
-
-Workflow:
-
-Candidate Answer
-
-↓
-
-Structured Prompt
-
-↓
-
-HTTP Request
-
-↓
-
-Ollama
-
-↓
-
-Llama 3
-
-↓
-
-Structured Evaluation
-
-↓
-
-Score Extraction
-
-↓
-
-Report Generation
-
-The prompt requests a consistent response format containing:
-
-- Score
-- Evaluation
-- Missing points
-- Improved answer
-- Interview suggestion
+- Create reports directory
+- Generate timestamped filenames
+- Save interview reports
+- Manage report output
 
 ---
 
@@ -241,7 +282,9 @@ smarthire-ai-interview-agent/
 ├── llm_engine.py
 ├── questions.py
 ├── report_generator.py
+│
 ├── reports/
+│
 └── README.md
 ```
 
@@ -249,65 +292,90 @@ smarthire-ai-interview-agent/
 
 # Technologies Used
 
+### Programming Language
+
 - Python
+
+### AI
+
 - Ollama
 - Llama 3
-- Requests
-- File I/O
+- Prompt Engineering
+
+### Libraries
+
+- requests
+- os
+- datetime
+
+### Concepts
+
+- AI Agents
+- Generative AI
 - Modular Programming
+- File Handling
+- HTTP Communication
 
 ---
 
 # Engineering Concepts Demonstrated
 
-- Modular architecture
+- Modular software architecture
 - Separation of concerns
 - Prompt engineering
-- AI integration
+- Local LLM integration
 - HTTP client implementation
+- AI-assisted workflow automation
 - CLI application design
-- File management
-- Basic exception handling
+- Interview history management
 - Report generation
-- State management through interview history
+- Basic exception handling
+- Reusable components
 
 ---
 
 # Design Decisions
 
+### Modular Architecture
+
+Each major responsibility is isolated into its own module, reducing coupling and improving maintainability.
+
 ### Dedicated LLM Layer
 
-Encapsulating model communication inside `llm_engine.py` isolates AI integration from business logic.
+AI communication is encapsulated inside `llm_engine.py`, preventing interview logic from depending directly on HTTP requests.
 
-### Business Logic Separation
+### Structured Prompt Engineering
 
-Interview orchestration resides inside `MockInterviewAgent`, keeping UI logic separate.
+The application requests responses in a consistent format, simplifying score extraction and report generation.
 
-### Static Question Repository
+### Local LLM Deployment
 
-Question management is isolated from application flow.
+Using Ollama enables offline execution while avoiding dependency on third-party AI services.
 
-### Independent Report Module
+### Extensible Question Bank
 
-Report generation is decoupled from interview execution.
+Interview questions are maintained separately from application logic, making it straightforward to add new domains.
 
 ---
 
 # Screenshots
 
-(Add screenshots)
+Add screenshots for:
 
-- Home screen
-- Interview session
-- LLM evaluation
-- Generated report
+- Main Menu
+- Topic Selection
+- Interview Session
+- AI Evaluation Output
+- Generated Interview Report
 
 ---
 
 # Installation
 
+Clone the repository
+
 ```bash
-git clone <repository-url>
+git clone https://github.com/yourusername/smarthire-ai-interview-agent.git
 
 cd smarthire-ai-interview-agent
 ```
@@ -318,7 +386,7 @@ Install dependencies
 pip install requests
 ```
 
-Install Ollama
+Install Llama 3
 
 ```bash
 ollama pull llama3
@@ -330,7 +398,7 @@ Start Ollama
 ollama serve
 ```
 
-Run
+Run the application
 
 ```bash
 python main.py
@@ -340,31 +408,34 @@ python main.py
 
 # Configuration
 
-Current configuration includes:
+The application currently uses:
 
-- Local Ollama endpoint
+- Local Ollama endpoint (`http://localhost:11434`)
 - Llama 3 model
-- Static question bank
+- Static question repository
+- Local report storage
 
 ---
 
 # Future Improvements
 
-- Web frontend
+Potential enhancements include:
+
+- Web interface
 - REST API backend
-- Database persistence
+- Persistent database
 - User authentication
-- Resume parsing
-- Adaptive questioning
-- Conversation memory
-- Multiple interview domains
-- Admin dashboard
-- Analytics
-- Docker support
+- Adaptive interview difficulty
+- Resume-based question generation
+- Multi-user support
+- Conversation memory improvements
+- Structured JSON LLM responses
+- Docker containerization
 - Automated testing
+- CI/CD pipeline
 
 ---
 
 # License
 
-MIT License
+This project is licensed under the MIT License.
